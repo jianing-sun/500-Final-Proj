@@ -1,0 +1,79 @@
+\documentclass [12pt,letterpaper]{exam}
+\usepackage{amsmath, amsthm, amsfonts, amssymb, amscd, latexsym}
+\usepackage{type1cm}
+\usepackage{simplemath}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+
+\oddsidemargin  0.0in \evensidemargin 0.0in \textwidth      6.0in
+\headheight     0.0in \topmargin      1.0in \textheight     9.0in
+
+\header{ECSE-500-01-1}{Assignment 10}{17.10.2005}
+
+\newcounter{count}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{questions}
+\question A $Volterra operator V$ on $L^2(0,1)$ is an operator of integration such as the one shown below 
+$$(Vx)(t) = \int_{0}^{t} x(s)ds, 0\leq t\leq 1$$
+(c) An operator is said to have $rank 1$ if its range is one dimensional. Show that $V + V^*$ has rank 1.\\
+
+Proof: First we will compute the adoint of V. In particular, we need to find the operator $V^*$ such that $(Vx,y) = (x,V^{*}y)$ for all $x,y\in L^{2}(0,1)$. Hence,$$(Vx,y) = \int_{0}^{1}\int{0}^{t} x(s)\overline{y(t)}dsdt$$
+Integrating by parts, we observe that:\\
+\begin{equation}
+\begin{split}
+    (Vx,y) &= \int_{0}^{1} \int_{0}^{t} x(s)\overline{y(t)}dsdt\\
+    &= (\int_{0}^{t}x(s)ds|_{0}^{1})(\int_{0}^{t}\overline{y(s)}ds|_{0}^{1}) - \int_{0}^{1}x(t)\int_{0}^{t}\overline{y(s)}dsdt\\
+&= (\int_{0}^{1}x(s)ds)(\int_{0}^{1}\overline{y(s)}ds) - \int_{0}^{1}x(t)\int_{0}^{t}\overline{y(s)}dsdt\\
+&= \int_{0}^{1}x(t)\int_{0}^{1}\overline{y(s)}dsdt - \int_{0}^{1}x(t)\int_{0}^{t}\overline{y(s)}dsdt\\
+&= \int_{0}^{1}x(t)\int_{t}^{1}\overline{y(s)}dsdt \\
+&= \int_{0}^{1}x(t)\overline{\int_{t}^{1}y(s)dsdt} = (x,V^*y)\\
+\end{split}
+\end{equation}
+where $$(V^*y)(t) = \int_{t}^{1}y(s)ds$$
+Therefore, $$((V+V^*)x)(t) = \int_{0}^{t}x(s)ds + \int_{t}^{1}x(s)ds = \int_{0}^{1}x(s)ds$$
+Therefore $((V+V^*)x)(t)$ is a constant. Thus the range of $V+V^*$ consists of the constant functions, a one-dimensional set. Therefore $V+V^*$ has rank 1.\\
+\question Let T be a bounded linear operator of rank 1 on a hilbert space H, and let $\psi$ be a non-zerp vector in the range of T.\\
+(a) Show that there exists $\varphi \in H$ such that
+$$\forall x \in H,  Tx = \langle x,\varphi \rangle \varphi$$
+and that $$||T|| = ||\varphi||||\psi||$$
+Proof: Suppose T is a rank-one bounded linear operator on a Hilbert space H, and let $\psi$ be any nonzero vector in the range of T. Then for and $x \in H$, there exists some $\gamma \in C$ such that $$Tx = \gamma\psi$$
+Define the linear functional $f: H \rightarrow C$ with $Tx = \gamma\psi$. Since From the Riesz Representation Theorem, there is some $\psi \in H$ such that $$f(x) = \langle x, \psi \rangle$$ for all $x \in H$.\\
+Hence we can compute $||T||$ in terms of $\psi$ and $f$:\\
+$$||T|| = \sup_{||x||<1}||Tx|| = \sup_{||x||<1}||f(x)\psi|| = \sup_{||x||<1}|f(x)|||\psi|| = ||\psi||||f||$$
+From Riezs Representation Theorem, we can also know that $||f|| = ||\varphi||$, hence
+$$||T|| = ||\varphi||||\psi||$$
+
+\question An operator K on $L^{2}(0,1)$ is defined by $$(Kx)(t) = \int_{0}^{1} e^{t-s} x(s)ds,   0<t<1$$
+Use the result from Q2(a) to show that $$||K|| = \sinh1$$
+Proof: To see that K is a rank-one operator, note that for all $t \in (0,1)$,
+$$(kx)(t) = \int_{o}^{1} e^{t-s} x(s)ds = e^t \int_{0}^{1} e^{-s} x(s)ds = e^{t}(x,e^{-s})$$
+From Q2(a), we have $\varphi(t) = e^t$ and $\psi(s) = e^{-t}$, hence $||K|| = ||e^{t}||||e^{-s}||$. We can simplify this formula:
+$$||e^{t}||||e^{-s}|| = (\int_{0}^{1} e^{2t}dt)^{\frac{1}{2}}(\int_{0}^{1} e^{-2t}dt)^{\frac{1}{2}} = \frac{1}{2}(e^2 - 1)^{\frac{1}{2}}(1 - e^{-2})^\frac{1}{2} = \frac{1}{2}(e - e^{-1}) = \sinh1$$
+Therefore, $||K|| = \sinh1$
+
+
+\question Let $$g_n(x) = \frac{e^{inx}}{\sqrt{2 \pi (1+n^2)}}, n\in \mathbb{Z}, x \in [-\pi, \pi]$$
+Show that $(g_n)_{\infty}^{\infty}$ is an orthonormal sequence in $W[-\pi, \pi]$. Let $$W_0 = \big\{ f \in W[-\pi,\pi] | f(\pi) \big\}= f(-\pi)$$
+Show that sinh is orthogonal to every function in $W_0$. Deduce that $(g_n)_{\infty}^{\infty}$ is not a total orthonormal sequence in $W[-\pi,\pi]$.\\
+Proof: $(f,g)_W$ - inner product on $W[-\pi,\pi]$. $(f,g)$ - usual $L^2 (-\pi,\pi)$ inner product.\\
+$$e_n = \frac{e^{inx}}{\sqrt{2\pi}}$$
+$$g_n(x) = \frac{e^{inx}}{\sqrt{2\pi(1+n^2))}} = \frac{e^{inx}}{\sqrt{1+n^2}}$$
+ $W[-\pi,\pi]$. $$(g_{n}^{'},g_{m}^{'}) = (2\pi(1+n^2))^{-1}({in}e^{inx},ime^{-imx})$$
+$$\Rightarrow (g_n,g_n)_W = \frac{1}{1+n^2} +\frac{n^2}{1+n^2} = 1$$
+Hence, $(g_n)$ forms an orthonormal sequence in the space.\\
+Since $\sinh x = \frac{1}{2}(e^x - e^{-x})$, suppose $g(x) = \sinh x$\\
+$$(f^{'},g^{'}) = \int_{-\pi}^{\pi} f^{'}(\frac{1}{2}(e^x + e^{-x})) dx = -(f,g)$$
+Hence, $$(f,g)_W = (f,g) + (f^{'} + g^{'}) = (f,g) - (f,g) = 0$$
+Since all the basis function $g_n$ satisfy $g_n(\pi) = g_n(-\pi)$, we see that $\sinh$ is a nontrivial function that is orthogonal to all $g_n$, therefore $g(n)$ is not a total orthonormal sequence in $W[-\pi,\pi]$
+
+
+
+
+\end{questions}
+\end{document}
